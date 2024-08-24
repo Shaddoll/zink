@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-    if os.Getenv("environment") == "" {
+    if os.Getenv("RUNTIME_ENV") == "" {
         err := godotenv.Load()
         if err != nil {
             panic(err)
