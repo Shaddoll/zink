@@ -13,9 +13,11 @@ import (
 )
 
 func main() {
-    err := godotenv.Load()
-    if err != nil {
-        panic(err)
+    if os.Getenv("environment") == "" {
+        err := godotenv.Load()
+        if err != nil {
+            panic(err)
+        }
     }
     jwtConfig := &config.JWTConfig{
         Issuer: "Shaddoll",
