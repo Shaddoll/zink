@@ -6,7 +6,7 @@ RUN yarn set version 3.6.1
 
 COPY package.json yarn.lock .yarnrc.yml ./
 
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 COPY . .
 
