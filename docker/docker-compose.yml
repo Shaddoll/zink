@@ -14,9 +14,22 @@ services:
       - GIN_MODE=${GIN_MODE}
   zink-web:
     image: elshaddai/zink-web:main
-    ports:
-      - "3000:3000"
+    expose:
+      - 3000
     environment:
       - API_URL=http://zink-api:8000
     depends_on:
+      - zink-api
+  nginx:
+    image: nginx:alpine
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ../certs:/etc/nginx/certs
+    depends_on:
+      - zink-web
       - zink-api
