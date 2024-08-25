@@ -1,9 +1,6 @@
-version: '3.8'
-
 services:
   zink-api:
-    build:
-      context: ../api
+    image: elshaddai/zink-api:main
     expose:
       - 8000
     environment:
@@ -16,8 +13,7 @@ services:
       - RUNTIME_ENV=${RUNTIME_ENV}
       - GIN_MODE=${GIN_MODE}
   zink-web:
-    build:
-      context: ../web
+    image: elshaddai/zink-web:main
     ports:
       - "3000:3000"
     environment:
