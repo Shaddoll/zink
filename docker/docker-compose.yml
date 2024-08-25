@@ -4,8 +4,8 @@ services:
   zink-api:
     build:
       context: ../api
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     environment:
       - MONGO_USER=${MONGO_USER}
       - MONGO_PASS=${MONGO_PASS}
@@ -15,3 +15,12 @@ services:
       - AUTH_KEY=${AUTH_KEY}
       - RUNTIME_ENV=${RUNTIME_ENV}
       - GIN_MODE=${GIN_MODE}
+  zink-web:
+    build:
+      context: ../web
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=http://zink-api:8000
+    depends_on:
+      - zink-api
