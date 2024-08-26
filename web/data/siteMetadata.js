@@ -5,7 +5,7 @@ const siteMetadata = {
   description: '重要的不是发生了什么，而是去做什么。',
   language: 'zh-Hans',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
+  siteUrl: `${process.env.WEB_URL || 'http://localhost:3000'}`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   apiUrl: `${process.env.API_URL || 'http://localhost:8000'}`,
   mastodon: 'https://mastodon.social/@mastodonuser',
