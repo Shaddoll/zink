@@ -15,6 +15,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.5.4",
     "@headlessui/react": "1.7.19",
     "@next/bundle-analyzer": "14.2.3",
     "@tailwindcss/forms": "^0.5.7",
@@ -31,6 +32,7 @@
     "hast-util-from-html-isomorphic": "^2.0.0",
     "http-errors": "^2.0.0",
     "image-size": "1.0.0",
+    "negotiator": "^0.6.3",
     "next": "14.2.3",
     "next-contentlayer2": "0.4.6",
     "next-mdx-remote": "^5.0.0",

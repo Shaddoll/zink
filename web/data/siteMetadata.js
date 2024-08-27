@@ -4,6 +4,11 @@ const siteMetadata = {
   headerTitle: 'Z\'ink',
   description: '重要的不是发生了什么，而是去做什么。',
   language: 'zh-Hans',
+  supportedLocales: ['en-US', 'zh-Hans'],
+  localeToLanguageMap: {
+    'en-US': 'English',
+    'zh-Hans': '简体中文',
+  },
   theme: 'system', // system, dark or light
   siteUrl: `${process.env.WEB_URL || 'http://localhost:3000'}`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
