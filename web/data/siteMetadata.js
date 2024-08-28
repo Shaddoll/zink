@@ -10,9 +10,10 @@ const siteMetadata = {
     'zh-Hans': '简体中文',
   },
   theme: 'system', // system, dark or light
-  siteUrl: `${process.env.WEB_URL || 'http://localhost:3000'}`,
+  siteUrl: 'https://zink.top',
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   apiUrl: `${process.env.API_URL || 'http://localhost:8000'}`,
+  walineServerUrl: 'https://waline-comments-olive.vercel.app',
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'address@yoursite.com',
   github: 'https://github.com',

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import siteMetadata from '@/data/siteMetadata'
 
 interface WalineCommentsProps {
   path: string
@@ -8,7 +9,7 @@ interface WalineCommentsProps {
 
 async function incViewCount(slug: string): Promise<number> {
   try {
-    const response = await fetch(`https://waline-comments-olive.vercel.app/api/article`, {
+    const response = await fetch(`${siteMetadata.walineServerUrl}/api/article`, {
       method: 'POST',
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
