@@ -8,7 +8,7 @@ const OnlineUsersTracker = () => {
 
   useEffect(() => {
     // Establish WebSocket connection
-    const ws = new WebSocket(`${siteMetadata.siteUrl.replace('https://', 'ws://')}/ws`)
+    const ws = new WebSocket(`${siteMetadata.siteUrl.replace('https://', 'wss://')}/ws`)
     // Handle incoming messages
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data)
