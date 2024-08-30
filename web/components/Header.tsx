@@ -5,6 +5,7 @@ import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import Image from 'next/image'
 import LocalDropdown from './LocaleDropdown'
+import OnlineUsersTracker from './OnlineUsersTracker'
 
 const Header = () => {
   let headerClass = 'flex items-center w-full bg-[#faebd7] dark:bg-gray-950 justify-between py-10'
@@ -43,6 +44,7 @@ const Header = () => {
               </Link>
             ))}
         </div>
+        <OnlineUsersTracker />
         <ThemeSwitch />
         <MobileNav />
       </div>

@@ -145,5 +145,7 @@ func SetupRouter(h handler.Handler, tm auth.TokenManager) *gin.Engine {
         }
         c.JSON(http.StatusOK, gin.H{"username": req.Username, "token": resp.Token})
     })
+
+    r.GET("/ws", wsHandler)
     return r
 }
