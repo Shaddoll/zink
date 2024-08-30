@@ -7,6 +7,7 @@ import (
 type (
     Post struct {
         ID string `bson:"id,omitempty"`
+        Slug string `bson:"slug,omitempty"`
         Title string `bson:"title,omitempty"`
         Author string `bson:"author,omitempty"`
         Content string `bson:"content,omitempty"`

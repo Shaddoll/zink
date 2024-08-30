@@ -7,10 +7,12 @@ import (
 type (
     PostNotFoundError struct {
         PostID string
+        Slug string
     }
 
     PostAlreadyExistsError struct {
         PostID string
+        Slug string
     }
 
     UserAlreadyExistsError struct {
@@ -23,11 +25,14 @@ type (
 )
 
 func (e *PostNotFoundError) Error() string {
-    return fmt.Sprintf("Post: %v not found", e.PostID)
+    if e.PostID != "" {
+        return fmt.Sprintf("PostID: %v not found", e.PostID)
+    }
+    return fmt.Sprintf("Post: %v not found", e.Slug)
 }
 
 func (e *PostAlreadyExistsError) Error() string {
-    return fmt.Sprintf("Post: %v already exists", e.PostID)
+    return fmt.Sprintf("Post ID: %v, Slug: %v already exists", e.PostID, e.Slug)
 }
 
 func (e *UserAlreadyExistsError) Error() string {

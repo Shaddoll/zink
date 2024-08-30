@@ -7,6 +7,7 @@ import (
 type (
     Post struct {
         ID string `json:"id,omitempty"`
+        Slug string `json:"slug,omitempty"`
         Title string `json:"title,omitempty"`
         Author string `json:"author,omitempty"`
         Content string `json:"content,omitempty"`

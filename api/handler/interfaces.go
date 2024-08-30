@@ -35,15 +35,25 @@ type (
         Post *model.Post
     }
 
+    GetPostBySlugRequest struct {
+        Slug string
+    }
+
+    GetPostBySlugResponse struct {
+        Post *model.Post
+    }
+
     CreatePostRequest struct {
         Post *model.Post
     }
 
     CreatePostResponse struct {
         PostID string
+        Slug string
     }
 
     UpdatePostRequest struct {
+        OriginalSlug string
         Post *model.Post
     }
 
@@ -69,6 +79,7 @@ type (
         ListPosts(context.Context, *ListPostsRequest) (*ListPostsResponse, error)
         GetPostsByTag(context.Context, *GetPostsByTagRequest) (*GetPostsByTagResponse, error)
         GetPost(context.Context, *GetPostRequest) (*GetPostResponse, error)
+        GetPostBySlug(context.Context, *GetPostBySlugRequest) (*GetPostBySlugResponse, error)
         GetTagCounts(context.Context, *GetTagCountsRequest) (*GetTagCountsResponse, error)
         CreatePost(context.Context, *CreatePostRequest) (*CreatePostResponse, error)
         UpdatePost(context.Context, *UpdatePostRequest) (*UpdatePostResponse, error)

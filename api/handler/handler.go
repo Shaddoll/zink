@@ -3,9 +3,11 @@ package handler
 import (
     "context"
     "crypto/rand"
+    "fmt"
     "strconv"
     "time"
 
+    "github.com/gosimple/slug"
     "github.com/Shaddoll/zink/api/auth"
     "github.com/Shaddoll/zink/api/model"
     "github.com/Shaddoll/zink/api/persistence"
@@ -58,6 +60,18 @@ func (h *handlerImpl) GetPost(ctx context.Context, req *GetPostRequest) (*GetPos
     }, nil
 }
 
+func (h *handlerImpl) GetPostBySlug(ctx context.Context, req *GetPostBySlugRequest) (*GetPostBySlugResponse, error) {
+    resp, err := h.db.GetPostBySlug(ctx, &persistence.GetPostBySlugRequest{
+        Slug: req.Slug,
+    })
+    if err != nil {
+        return nil, err
+    }
+    return &GetPostBySlugResponse{
+        Post: resp.Post,
+    }, nil
+}
+
 func (h *handlerImpl) GetTagCounts(ctx context.Context, req *GetTagCountsRequest) (*GetTagCountsResponse, error) {
     resp, err := h.db.GetTagCounts(ctx, &persistence.GetTagCountsRequest{})
     if err != nil {
@@ -68,6 +82,21 @@ func (h *handlerImpl) GetTagCounts(ctx context.Context, req *GetTagCountsRequest
     }, nil
 }
 
+func (h *handlerImpl) generateSlug(ctx context.Context, baseSlug string, slugs map[string]struct{}) (string, error) {
+    slug := baseSlug
+    if len(slugs) > 0 {
+        i := 1
+        for {
+            if _, ok := slugs[slug]; !ok {
+                break
+            }
+            slug = fmt.Sprintf("%s-%v", baseSlug, i)
+            i++
+        }
+    }
+    return slug, nil
+}
+
 func (h *handlerImpl) CreatePost(ctx context.Context, req *CreatePostRequest) (*CreatePostResponse, error) {
     cResp, err := h.db.CountPosts(ctx, &persistence.CountPostsRequest{})
     if err != nil {
@@ -75,6 +104,18 @@ func (h *handlerImpl) CreatePost(ctx context.Context, req *CreatePostRequest) (*
     }
     id := strconv.FormatInt(cResp.Count + 1, 10)
     req.Post.ID = id
+
+    baseSlug := slug.Make(req.Post.Title)
+    sResp, err := h.db.GetSimilarSlugs(ctx, &persistence.GetSimilarSlugsRequest{BaseSlug: baseSlug})
+    if err != nil {
+        return nil, err
+    }
+    slug, err := h.generateSlug(ctx, baseSlug, sResp.Slugs)
+    if err != nil {
+        return nil, err
+    }
+    req.Post.Slug = slug
+
     now := time.Now()
     req.Post.CreatedAt = now
     req.Post.UpdatedAt = now
@@ -86,13 +127,34 @@ func (h *handlerImpl) CreatePost(ctx context.Context, req *CreatePostRequest) (*
     }
     return &CreatePostResponse{
         PostID: id,
+        Slug: slug,
     }, nil
 }
 
 func (h *handlerImpl) UpdatePost(ctx context.Context, req *UpdatePostRequest) (*UpdatePostResponse, error) {
+    resp, err := h.db.GetPostBySlug(ctx, &persistence.GetPostBySlugRequest{
+        Slug: req.OriginalSlug,
+    })
+    if err != nil {
+        return nil, err
+    }
+    if req.Post.Title != resp.Post.Title {
+        baseSlug := slug.Make(req.Post.Title)
+        sResp, err := h.db.GetSimilarSlugs(ctx, &persistence.GetSimilarSlugsRequest{BaseSlug: baseSlug})
+        if err != nil {
+            return nil, err
+        }
+        delete(sResp.Slugs, req.OriginalSlug)
+        slug, err := h.generateSlug(ctx, baseSlug, sResp.Slugs)
+        if err != nil {
+            return nil, err
+        }
+        req.Post.Slug = slug
+    }
+    req.Post.ID = resp.Post.ID
     now := time.Now()
     req.Post.UpdatedAt = now
-    _, err := h.db.UpdatePost(ctx, &persistence.UpdatePostRequest{
+    _, err = h.db.UpdatePost(ctx, &persistence.UpdatePostRequest{
         req.Post,
     })
     if err != nil {

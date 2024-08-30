@@ -57,12 +57,12 @@ func SetupRouter(h handler.Handler, tm auth.TokenManager) *gin.Engine {
         c.JSON(http.StatusOK, resp.Posts)
     })
 
-    r.GET("/post/:id", func(c *gin.Context) {
-        postID := c.Param("id")
+    r.GET("/post/:slug", func(c *gin.Context) {
+        slug := c.Param("slug")
         ctx, cancel := context.WithTimeout(context.Background(), time.Second)
         defer cancel()
-        resp, err := h.GetPost(ctx, &handler.GetPostRequest{
-            PostID: postID,
+        resp, err := h.GetPostBySlug(ctx, &handler.GetPostBySlugRequest{
+            Slug: slug,
         })
         if err != nil {
             var e *errs.PostNotFoundError
@@ -76,17 +76,17 @@ func SetupRouter(h handler.Handler, tm auth.TokenManager) *gin.Engine {
         c.JSON(http.StatusOK, resp.Post)
     })
 
-    auth.POST("/post/update/:id", func(c *gin.Context) {
-        postID := c.Param("id")
+    auth.POST("/post/update/:slug", func(c *gin.Context) {
+        slug := c.Param("slug")
         var post *model.Post
         if err := c.BindJSON(&post); err != nil {
             c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
             return
         }
-        post.ID = postID
         ctx, cancel := context.WithTimeout(context.Background(), time.Second)
         defer cancel()
         _, err := h.UpdatePost(ctx, &handler.UpdatePostRequest{
+            OriginalSlug: slug,
             Post: post,
         })
         if err != nil {
@@ -111,7 +111,7 @@ func SetupRouter(h handler.Handler, tm auth.TokenManager) *gin.Engine {
             c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
             return
         }
-        c.JSON(http.StatusOK, gin.H{"postID": resp.PostID})
+        c.JSON(http.StatusOK, gin.H{"postID": resp.PostID, "slug": resp.Slug})
     })
 
     r.POST("/signup", func(c *gin.Context) {

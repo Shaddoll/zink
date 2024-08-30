@@ -10,7 +10,7 @@ export default async function fetchPostsByTag(tag: string): Promise<Post[]> {
     }
     const data = await response.json();
     const posts = data?.map((post) => ({
-        slug: post.id,
+        slug: post.slug,
         date: post.created_at,
         title: post.title,
         tags: post.tags,

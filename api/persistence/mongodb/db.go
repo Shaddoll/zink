@@ -2,6 +2,8 @@ package mongodb
 
 import (
     "context"
+    "fmt"
+    "regexp"
 
     "go.mongodb.org/mongo-driver/mongo"
     "go.mongodb.org/mongo-driver/bson"
@@ -61,6 +63,7 @@ func (m *mdb) ListPosts(ctx context.Context, req *persistence.ListPostsRequest) 
     for _, r := range results {
         posts = append(posts, &model.Post{
             ID: r.ID,
+            Slug: r.Slug,
             Title: r.Title,
             Author: r.Author,
             Summary: r.Summary,
@@ -87,6 +90,7 @@ func (m *mdb) GetPostByID(ctx context.Context, req *persistence.GetPostByIDReque
     return &persistence.GetPostByIDResponse{
         Post: &model.Post{
             ID: post.ID,
+            Slug: post.Slug,
             Title: post.Title,
             Author: post.Author,
             Content: post.Content,
@@ -95,6 +99,57 @@ func (m *mdb) GetPostByID(ctx context.Context, req *persistence.GetPostByIDReque
             CreatedAt: post.CreatedAt,
             UpdatedAt: post.UpdatedAt,
         },
+    }, nil
+}
+
+func (m *mdb) GetPostBySlug(ctx context.Context, req *persistence.GetPostBySlugRequest) (*persistence.GetPostBySlugResponse, error) {
+    collection := m.dbConn.Collection("posts")
+    var post *Post
+    err := collection.FindOne(ctx, bson.D{{"slug", req.Slug}}).Decode(&post)
+    if err != nil {
+        if err == mongo.ErrNoDocuments {
+            return nil, &errors.PostNotFoundError{Slug: req.Slug}
+        }
+        return nil, err
+    }
+    return &persistence.GetPostBySlugResponse{
+        Post: &model.Post{
+            ID: post.ID,
+            Slug: post.Slug,
+            Title: post.Title,
+            Author: post.Author,
+            Content: post.Content,
+            Summary: post.Summary,
+            Tags: post.Tags,
+            CreatedAt: post.CreatedAt,
+            UpdatedAt: post.UpdatedAt,
+        },
+    }, nil
+}
+
+func (m *mdb) GetSimilarSlugs(ctx context.Context, req *persistence.GetSimilarSlugsRequest) (*persistence.GetSimilarSlugsResponse, error) {
+    collection := m.dbConn.Collection("posts")
+    regexPattern := fmt.Sprintf("^%s(-\\d+)?$", regexp.QuoteMeta(req.BaseSlug))
+    opts := options.Find().SetProjection(bson.M{"slug": 1, "_id": 0})
+    cursor, err := collection.Find(ctx, bson.M{"slug": bson.M{"$regex": regexPattern}}, opts)
+    if err != nil {
+        return nil, err
+    }
+    defer cursor.Close(ctx)
+
+    slugs := make(map[string]struct{})
+    for cursor.Next(ctx) {
+        var post Post
+        if err := cursor.Decode(&post); err != nil {
+            return nil, err
+        }
+        slugs[post.Slug] = struct{}{}
+    }
+    if err := cursor.Err(); err != nil {
+        return nil, err
+    }
+    return &persistence.GetSimilarSlugsResponse{
+        Slugs: slugs,
     }, nil
 }
 
@@ -117,6 +172,7 @@ func (m *mdb) GetPostsByTag(ctx context.Context, req *persistence.GetPostsByTagR
     for _, r := range results {
         posts = append(posts, &model.Post{
             ID: r.ID,
+            Slug: r.Slug,
             Title: r.Title,
             Author: r.Author,
             Summary: r.Summary,
@@ -164,6 +220,7 @@ func (m *mdb) CreatePost(ctx context.Context, req *persistence.CreatePostRequest
     collection := m.dbConn.Collection("posts")
     post := &Post{
         ID: req.Post.ID,
+        Slug: req.Post.Slug,
         Title: req.Post.Title,
         Author: req.Post.Author,
         Content: req.Post.Content,
@@ -175,7 +232,7 @@ func (m *mdb) CreatePost(ctx context.Context, req *persistence.CreatePostRequest
     _, err := collection.InsertOne(ctx, post)
     if err != nil {
         if mongo.IsDuplicateKeyError(err) {
-            return nil, &errors.PostAlreadyExistsError{PostID: req.Post.ID}
+            return nil, &errors.PostAlreadyExistsError{PostID: req.Post.ID, Slug: req.Post.Slug}
         }
         return nil, err
     }
@@ -186,6 +243,7 @@ func (m *mdb) UpdatePost(ctx context.Context, req *persistence.UpdatePostRequest
     collection := m.dbConn.Collection("posts")
     post := &Post{
         ID: req.Post.ID,
+        Slug: req.Post.Slug,
         Title: req.Post.Title,
         Author: req.Post.Author,
         Content: req.Post.Content,

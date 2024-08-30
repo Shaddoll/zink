@@ -21,6 +21,22 @@ type (
         Post *model.Post
     }
 
+    GetPostBySlugRequest struct {
+        Slug string
+    }
+
+    GetPostBySlugResponse struct {
+        Post *model.Post
+    }
+
+    GetSimilarSlugsRequest struct {
+        BaseSlug string
+    }
+
+    GetSimilarSlugsResponse struct {
+        Slugs map[string]struct{}
+    }
+
     GetPostsByTagRequest struct {
         Tag string
     }
@@ -72,6 +88,8 @@ type (
     DB interface {
         ListPosts(context.Context, *ListPostsRequest) (*ListPostsResponse, error)
         GetPostByID(context.Context, *GetPostByIDRequest) (*GetPostByIDResponse, error)
+        GetPostBySlug(context.Context, *GetPostBySlugRequest) (*GetPostBySlugResponse, error)
+        GetSimilarSlugs(context.Context, *GetSimilarSlugsRequest) (*GetSimilarSlugsResponse, error)
         GetPostsByTag(context.Context, *GetPostsByTagRequest) (*GetPostsByTagResponse, error)
         GetTagCounts(context.Context, *GetTagCountsRequest) (*GetTagCountsResponse, error)
         CreatePost(context.Context, *CreatePostRequest) (*CreatePostResponse, error)
