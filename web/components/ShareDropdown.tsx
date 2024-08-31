@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { X, Facebook, Linkedin, Weibo } from './social-icons/icons'
+import { X, Facebook, Linkedin, Weibo, Wechat } from './social-icons/icons'
+import { QRCodeSVG } from 'qrcode.react'
 
 const Popup = ({ message, onClose, isVisible }) => {
   return (
@@ -173,6 +174,13 @@ const ShareDropdown = ({ title }) => {
               <Weibo className="mr-2 h-5 w-5" />
               分享到微博
             </button>
+            <button className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+              <Wechat className="mr-2 h-5 w-5" />
+              分享到微信
+            </button>
+            <div className="mb-4 mt-2 flex w-full justify-center">
+              <QRCodeSVG value={shareUrl} size={96} />
+            </div>
           </div>
         </div>
       )}

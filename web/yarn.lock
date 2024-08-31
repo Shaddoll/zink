@@ -9854,6 +9854,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qrcode.react@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "qrcode.react@npm:4.0.1"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 947728a991a4b7b3e2722c20334d47622f689b482114a2f95a2befe6c985d8205b0a4a0ac68bf35514bdb7c192748a14e0cf7b07df6fcc005032b8db6d342dd9
+  languageName: node
+  linkType: hard
+
 "qs@npm:^6.5.1":
   version: 6.13.0
   resolution: "qs@npm:6.13.0"
@@ -11473,6 +11482,7 @@ __metadata:
     postcss: ^8.4.24
     prettier: ^3.0.0
     prettier-plugin-tailwindcss: ^0.5.11
+    qrcode.react: ^4.0.1
     react: 18.3.1
     react-dom: 18.3.1
     reading-time: 1.5.0
