@@ -25,6 +25,7 @@ const siteMetadata = {
   instagram: 'https://www.instagram.com',
   weibo: 'https://weibo.com',
   bilibili: 'https://bilibili.com',
+  zhihu: 'https://zhihu.com',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
   analytics: {

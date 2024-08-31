@@ -54,7 +54,7 @@ export default async function PostLayout({ content, next, prev, children, locale
               )}
               <div className="flex items-center justify-center space-x-2">
                 <WalineViewCount path={slug} />
-                <ShareDropdown />
+                <ShareDropdown title={title} />
               </div>
             </div>
           </header>

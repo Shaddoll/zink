@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { X, Facebook, Linkedin } from './social-icons/icons'
+import { X, Facebook, Linkedin, Weibo } from './social-icons/icons'
 
 const Popup = ({ message, onClose, isVisible }) => {
   return (
@@ -25,12 +25,13 @@ const Popup = ({ message, onClose, isVisible }) => {
   )
 }
 
-const ShareDropdown = () => {
+const ShareDropdown = ({ title }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
   const [isVisible, setIsVisible] = useState(false) // Manage visibility for animation
   const [shareUrl, setShareUrl] = useState<string>('')
   const timeoutRef = useRef<number | null>(null) // Ref to keep track of the timeout
+  const imageUrl = 'https://zink.top/static/images/twitter-card.png'
 
   useEffect(() => {
     setShareUrl(window?.location.href || '')
@@ -160,6 +161,17 @@ const ShareDropdown = () => {
             >
               <Linkedin className="mr-2 h-5 w-5" />
               Share on LinkedIn
+            </button>
+            <button
+              onClick={() =>
+                openPopup(
+                  `https://service.weibo.com/share/share.php?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&pic=${encodeURIComponent(imageUrl)}`
+                )
+              }
+              className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+            >
+              <Weibo className="mr-2 h-5 w-5" />
+              分享到微博
             </button>
           </div>
         </div>
