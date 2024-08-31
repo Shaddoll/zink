@@ -29,12 +29,12 @@ const ShareDropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
   const [isVisible, setIsVisible] = useState(false) // Manage visibility for animation
-  const [shareUrl, setShareUrl] = useState<string>('');
+  const [shareUrl, setShareUrl] = useState<string>('')
   const timeoutRef = useRef<number | null>(null) // Ref to keep track of the timeout
 
   useEffect(() => {
-    setShareUrl(window?.location.href || '');
-  }, []);
+    setShareUrl(window?.location.href || '')
+  }, [])
 
   useEffect(() => {
     if (showPopup) {
@@ -141,7 +141,9 @@ const ShareDropdown = () => {
             </button>
             <button
               onClick={() =>
-                openPopup(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`)
+                openPopup(
+                  `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`
+                )
               }
               className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
             >
@@ -150,7 +152,9 @@ const ShareDropdown = () => {
             </button>
             <button
               onClick={() =>
-                openPopup(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`)
+                openPopup(
+                  `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`
+                )
               }
               className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
             >

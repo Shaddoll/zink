@@ -23,6 +23,8 @@ const siteMetadata = {
   linkedin: 'https://www.linkedin.com',
   threads: 'https://www.threads.net',
   instagram: 'https://www.instagram.com',
+  weibo: 'https://weibo.com',
+  bilibili: 'https://bilibili.com',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
   analytics: {
