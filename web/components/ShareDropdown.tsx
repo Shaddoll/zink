@@ -29,9 +29,12 @@ const ShareDropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
   const [isVisible, setIsVisible] = useState(false) // Manage visibility for animation
-
+  const [shareUrl, setShareUrl] = useState<string>('');
   const timeoutRef = useRef<number | null>(null) // Ref to keep track of the timeout
-  const shareUrl = window.location.href
+
+  useEffect(() => {
+    setShareUrl(window?.location.href || '');
+  }, []);
 
   useEffect(() => {
     if (showPopup) {
@@ -62,8 +65,8 @@ const ShareDropdown = () => {
   }
 
   const openPopup = (url: string) => {
-    const width = 600
-    const height = 400
+    const width = 800
+    const height = 600
     const left = window.innerWidth / 2 - width / 2
     const top = window.innerHeight / 2 - height / 2
 
@@ -138,7 +141,7 @@ const ShareDropdown = () => {
             </button>
             <button
               onClick={() =>
-                openPopup(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`)
+                openPopup(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`)
               }
               className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
             >
@@ -147,7 +150,7 @@ const ShareDropdown = () => {
             </button>
             <button
               onClick={() =>
-                openPopup(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`)
+                openPopup(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`)
               }
               className="flex w-full items-center px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
             >
