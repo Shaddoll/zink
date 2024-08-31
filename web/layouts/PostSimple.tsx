@@ -9,6 +9,7 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import Tag from '@/components/Tag'
 import WalineComments from '@/components/WalineComments'
 import WalineViewCount from '@/components/WalineViewCount'
+import ShareDropdown from '@/components/ShareDropdown'
 
 interface LayoutProps {
   content: Post
@@ -51,7 +52,10 @@ export default async function PostLayout({ content, next, prev, children, locale
                   </div>
                 </div>
               )}
-              <WalineViewCount path={slug} />
+              <div className="flex items-center justify-center space-x-2">
+                <WalineViewCount path={slug} />
+                <ShareDropdown />
+              </div>
             </div>
           </header>
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0">
