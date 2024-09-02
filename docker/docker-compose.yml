@@ -24,6 +24,7 @@ services:
     image: nginx:alpine
     environment:
       - DOMAIN_NAME=${DOMAIN_NAME}
+      - BLOB_DOMAIN_NAME=${BLOB_DOMAIN_NAME}
     ports:
       - "80:80"
       - "443:443"
