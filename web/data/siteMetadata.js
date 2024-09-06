@@ -15,7 +15,7 @@ const siteMetadata = {
   apiUrl: `${process.env.API_URL || 'http://localhost:8000'}`,
   walineServerUrl: 'https://waline-comments-olive.vercel.app',
   mastodon: 'https://mastodon.social/@mastodonuser',
-  email: 'address@yoursite.com',
+  email: 'z@zink.top',
   github: 'https://github.com',
   x: 'https://twitter.com/x',
   facebook: 'https://facebook.com',
