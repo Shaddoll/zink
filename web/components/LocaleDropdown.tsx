@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import siteMetadata from '@/data/siteMetadata'
@@ -10,6 +10,26 @@ export default function LocalDropdown() {
   const localePath = pathname.split('/')[1]
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const router = useRouter()
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [dropdownOpen])
+
   if (!siteMetadata.supportedLocales.includes(localePath)) {
     return null
   }
@@ -19,7 +39,7 @@ export default function LocalDropdown() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="text-md flex items-center focus:outline-none"

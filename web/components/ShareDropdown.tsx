@@ -32,6 +32,7 @@ const ShareDropdown = ({ title }) => {
   const [isVisible, setIsVisible] = useState(false) // Manage visibility for animation
   const [shareUrl, setShareUrl] = useState<string>('')
   const timeoutRef = useRef<number | null>(null) // Ref to keep track of the timeout
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const imageUrl = 'https://zink.top/static/images/twitter-card.png'
 
   useEffect(() => {
@@ -61,6 +62,24 @@ const ShareDropdown = ({ title }) => {
     }
   }, [showPopup])
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [dropdownOpen])
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareUrl)
     setShowPopup(true)
@@ -80,7 +99,7 @@ const ShareDropdown = ({ title }) => {
   }
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="mt-2 flex items-center text-sm text-gray-500 focus:outline-none dark:text-gray-400"
