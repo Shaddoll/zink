@@ -33,11 +33,14 @@ const siteMetadata = {
       googleAnalyticsId: 'G-S7TS8QW3J5', 
     },
   },
+  googleAcountKeyFilePath: process.env.GOOGLE_ACCOUNT_KEY_FILE_PATH || '/etc/secrets/google-account-key.json',
+  googleAnalyticsProperty: process.env.GOOGLE_ANALYTICS_PROPERTY || '',
   newsletter: {
     // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
     // Please add your .env file and modify it according to your selection
     provider: 'buttondown',
   },
+  geoNameUsername: process.env.GEONAME_USERNAME || '',
   search: {
     provider: 'kbar', // kbar or algolia
     kbarConfig: {

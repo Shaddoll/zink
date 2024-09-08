@@ -18,6 +18,11 @@ services:
       - 3000
     environment:
       - API_URL=http://zink-api:8000
+      - GOOGLE_ACCOUNT_KEY_FILE_PATH=/etc/secrets/google_account_key.json
+      - GOOGLE_ANALYTICS_PROPERTY=${GOOGLE_ANALYTICS_PROPERTY}
+      - GEONAME_USERNAME=${GEONAME_USERNAME}
+    volumes:
+      - ../google_account_key.json:/etc/secrets/google_account_key.json:ro
     depends_on:
       - zink-api
   nginx:

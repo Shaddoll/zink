@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import siteMetadata from '@/data/siteMetadata'
+import Link from 'next/link'
 
 const OnlineUsersTracker = () => {
   const [onlineUsers, setOnlineUsers] = useState(1)
@@ -23,9 +24,12 @@ const OnlineUsersTracker = () => {
   }, []) // Empty dependency array means this effect runs once on mount
 
   return (
-    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-      Online Vistors: {onlineUsers}
-    </div>
+    <Link
+      href="/visitor"
+      className="block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+    >
+      Online Visitors: {onlineUsers}
+    </Link>
   )
 }
 
