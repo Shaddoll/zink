@@ -38,7 +38,7 @@ const siteMetadata = {
   newsletter: {
     // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
     // Please add your .env file and modify it according to your selection
-    provider: 'buttondown',
+    provider: 'emailoctopus',
   },
   geoNameUsername: process.env.GEONAME_USERNAME || '',
   search: {

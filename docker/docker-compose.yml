@@ -21,6 +21,8 @@ services:
       - GOOGLE_ACCOUNT_KEY_FILE_PATH=/etc/secrets/google_account_key.json
       - GOOGLE_ANALYTICS_PROPERTY=${GOOGLE_ANALYTICS_PROPERTY}
       - GEONAME_USERNAME=${GEONAME_USERNAME}
+      - EMAILOCTOPUS_LIST_ID=${EMAILOCTOPUS_LIST_ID}
+      - EMAILOCTOPUS_API_KEY=${EMAILOCTOPUS_API_KEY}
     volumes:
       - ../secrets:/etc/secrets:ro
     depends_on:
