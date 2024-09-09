@@ -23,6 +23,7 @@ services:
       - GEONAME_USERNAME=${GEONAME_USERNAME}
       - EMAILOCTOPUS_LIST_ID=${EMAILOCTOPUS_LIST_ID}
       - EMAILOCTOPUS_API_KEY=${EMAILOCTOPUS_API_KEY}
+      - CLUSTRMAP_ID=${CLUSTRMAP_ID}
     volumes:
       - ../secrets:/etc/secrets:ro
     depends_on:

@@ -11,6 +11,7 @@ import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
+import ClustrMapsWidget from '@/components/ClustrMapWidget'
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -54,6 +55,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const basePath = process.env.BASE_PATH || ''
+  const clustrMapID = process.env.CLUSTRMAP_ID || ''
 
   return (
     <html
@@ -105,6 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Footer />
           </SectionContainer>
         </ThemeProviders>
+        {clustrMapID && <ClustrMapsWidget id={clustrMapID} />}
       </body>
     </html>
   )
