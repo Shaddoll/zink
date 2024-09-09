@@ -36,6 +36,7 @@ export async function generateMetadata({
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
       url: './',
+      images: [siteMetadata.socialBanner],
       authors: [siteMetadata.author],
     },
     twitter: {
