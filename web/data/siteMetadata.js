@@ -30,7 +30,7 @@ const siteMetadata = {
   stickyNav: false,
   analytics: {
     googleAnalytics: {
-      googleAnalyticsId: 'G-S7TS8QW3J5', 
+      googleAnalyticsId: `${process.env.GOOGLE_ANALYTICS_ID || ''}`, 
     },
   },
   googleAcountKeyFilePath: process.env.GOOGLE_ACCOUNT_KEY_FILE_PATH || '/etc/secrets/google-account-key.json',
