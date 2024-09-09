@@ -4,17 +4,17 @@ import { useEffect } from 'react'
 import { init } from '@waline/client'
 import '@waline/client/waline.css'
 import 'css/waline.css'
-import siteMetadata from '@/data/siteMetadata'
 
 interface WalineCommentsProps {
   path: string
+  serverURL: string
 }
 
-export default function WalineComments({ path }: WalineCommentsProps) {
+export default function WalineComments({ path, serverURL }: WalineCommentsProps) {
   useEffect(() => {
     const walineInstance = init({
       el: '#waline',
-      serverURL: siteMetadata.walineServerUrl,
+      serverURL: serverURL,
       path: path, // Unique path for each blog post
       comment: true,
       emoji: [
@@ -25,7 +25,7 @@ export default function WalineComments({ path }: WalineCommentsProps) {
       dark: 'html[style="color-scheme: dark;"]',
     })
     return () => walineInstance?.destroy()
-  }, [path])
+  }, [path, serverURL])
 
   return <div id="waline" />
 }

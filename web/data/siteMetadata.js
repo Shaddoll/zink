@@ -13,7 +13,7 @@ const siteMetadata = {
   siteUrl: 'https://zink.top',
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   apiUrl: `${process.env.API_URL || 'http://localhost:8000'}`,
-  walineServerUrl: 'https://waline-comments-olive.vercel.app',
+  walineServerUrl: `${process.env.WALINE_URL || 'http://localhost:7001'}`,
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'z@zink.top',
   github: 'https://github.com',

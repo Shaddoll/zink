@@ -1,15 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import siteMetadata from '@/data/siteMetadata'
 
 interface WalineCommentsProps {
   path: string
+  serverURL: string
 }
 
-async function incViewCount(slug: string): Promise<number> {
+async function incViewCount(slug: string, serverURL: string): Promise<number> {
   try {
-    const response = await fetch(`${siteMetadata.walineServerUrl}/api/article`, {
+    const response = await fetch(`${serverURL}/api/article`, {
       method: 'POST',
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
@@ -32,12 +32,12 @@ async function incViewCount(slug: string): Promise<number> {
   }
 }
 
-export default function WalineViewCount({ path }: WalineCommentsProps) {
+export default function WalineViewCount({ path, serverURL }: WalineCommentsProps) {
   const [viewCount, setViewCount] = useState(0)
 
   useEffect(() => {
-    incViewCount(path).then(setViewCount)
-  }, [path])
+    incViewCount(path, serverURL).then(setViewCount)
+  }, [path, serverURL])
 
   return (
     <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">

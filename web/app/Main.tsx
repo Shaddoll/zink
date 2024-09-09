@@ -94,7 +94,7 @@ export default function Home({ posts, locale }) {
       )}
 
       <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300" id="comment">
-        <WalineComments path="/" />
+        <WalineComments path="/" serverURL={siteMetadata.walineServerUrl} />
       </div>
     </>
   )
