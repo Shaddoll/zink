@@ -11,14 +11,21 @@ export default function Home({ posts, locale }) {
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Latest
-          </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {siteMetadata.description}
-          </p>
-          <div className="mx-2 my-12 flex w-[300px] items-center justify-center sm:w-[400px] md:w-[550px]">
-            <NewsletterForm title="Stay updated, receive the latest post straight to your mailbox" />
+          <div className="flex flex-col md:flex-row">
+            {/* First Group (60% width) */}
+            <div className="w-full md:w-[60%]">
+              <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+                Latest
+              </h1>
+              <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+                {siteMetadata.description}
+              </p>
+            </div>
+
+            {/* Second Group (40% width) */}
+            <div className="my-12 flex w-full items-center justify-center md:w-[40%]">
+              <NewsletterForm title="Subscribe to the latest post to your email" />
+            </div>
           </div>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
