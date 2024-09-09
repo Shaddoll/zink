@@ -3,6 +3,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
+import WalineComments from '@/components/WalineComments'
 
 const MAX_DISPLAY = 3
 
@@ -91,6 +92,10 @@ export default function Home({ posts, locale }) {
           </Link>
         </div>
       )}
+
+      <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300" id="comment">
+        <WalineComments path="/" />
+      </div>
     </>
   )
 }
