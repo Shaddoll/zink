@@ -4,13 +4,15 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import siteMetadata from '@/data/siteMetadata'
+import { useTranslation } from 'app/i18n/client'
+import { languages } from 'app/i18n/settings'
 
-export default function LocalDropdown() {
+export default function LocalDropdown({ locale }) {
   const pathname = usePathname()
-  const localePath = pathname.split('/')[1]
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const router = useRouter()
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const { t } = useTranslation(locale, 'header')
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -30,12 +32,17 @@ export default function LocalDropdown() {
     }
   }, [dropdownOpen])
 
-  if (!siteMetadata.supportedLocales.includes(localePath)) {
-    return null
-  }
   const handleLanguageChange = (locale: string) => {
     setDropdownOpen(false)
-    router.push(pathname.replace(localePath, locale))
+    const segments = pathname!.split('/')
+    const localeIndex = segments.findIndex((segment) => languages.includes(segment))
+    if (localeIndex !== -1) {
+      segments[localeIndex] = locale
+    } else {
+      segments.splice(1, 0, locale)
+    }
+    const newPath = segments.join('/').replace(/\/$/, '')
+    router.push(newPath)
   }
 
   return (
@@ -44,7 +51,7 @@ export default function LocalDropdown() {
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="text-md flex items-center focus:outline-none"
       >
-        Language
+        {t('language')}
         <svg
           className="ml-1 h-4 w-4"
           aria-hidden="true"

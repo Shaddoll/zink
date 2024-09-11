@@ -1,10 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'app/i18n/client'
 
 interface WalineCommentsProps {
   path: string
   serverURL: string
+  locale: string
 }
 
 async function incViewCount(slug: string, serverURL: string): Promise<number> {
@@ -32,8 +34,9 @@ async function incViewCount(slug: string, serverURL: string): Promise<number> {
   }
 }
 
-export default function WalineViewCount({ path, serverURL }: WalineCommentsProps) {
+export default function WalineViewCount({ path, serverURL, locale }: WalineCommentsProps) {
   const [viewCount, setViewCount] = useState(0)
+  const { t } = useTranslation(locale, 'blog')
 
   useEffect(() => {
     incViewCount(path, serverURL).then(setViewCount)
@@ -41,7 +44,9 @@ export default function WalineViewCount({ path, serverURL }: WalineCommentsProps
 
   return (
     <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-      <span>{viewCount} views</span>
+      <span>
+        {viewCount} {t('views')}
+      </span>
     </div>
   )
 }

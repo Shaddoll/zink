@@ -1,0 +1,9 @@
+{
+  "today": "今日访客",
+  "yesterday": "昨日访客",
+  "week": "过去7天",
+  "month": "过去30天",
+  "total": "总访客",
+  "since": "自",
+  "distinct": "独立访客"
+}

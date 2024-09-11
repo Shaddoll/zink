@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { X, Facebook, Linkedin, Weibo, Wechat } from './social-icons/icons'
 import { QRCodeSVG } from 'qrcode.react'
+import { useTranslation } from 'app/i18n/client'
 
 const Popup = ({ message, onClose, isVisible }) => {
   return (
@@ -26,7 +27,7 @@ const Popup = ({ message, onClose, isVisible }) => {
   )
 }
 
-const ShareDropdown = ({ title }) => {
+const ShareDropdown = ({ title, locale }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
   const [isVisible, setIsVisible] = useState(false) // Manage visibility for animation
@@ -34,6 +35,7 @@ const ShareDropdown = ({ title }) => {
   const timeoutRef = useRef<number | null>(null) // Ref to keep track of the timeout
   const dropdownRef = useRef<HTMLDivElement>(null)
   const imageUrl = 'https://zink.top/static/images/twitter-card.png'
+  const { t } = useTranslation(locale, 'blog')
 
   useEffect(() => {
     setShareUrl(window?.location.href || '')
@@ -104,7 +106,7 @@ const ShareDropdown = ({ title }) => {
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="mt-2 flex items-center text-sm text-gray-500 focus:outline-none dark:text-gray-400"
       >
-        Share
+        {t('share')}
         <svg
           className="ml-1 h-4 w-4"
           aria-hidden="true"
@@ -149,7 +151,7 @@ const ShareDropdown = ({ title }) => {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              Copy link
+              {t('copy')}
             </button>
             <button
               onClick={() =>

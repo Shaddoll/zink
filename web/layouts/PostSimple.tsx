@@ -53,8 +53,12 @@ export default async function PostLayout({ content, next, prev, children, locale
                 </div>
               )}
               <div className="flex items-center justify-center space-x-2">
-                <WalineViewCount path={slug} serverURL={siteMetadata.walineServerUrl} />
-                <ShareDropdown title={title} />
+                <WalineViewCount
+                  path={slug}
+                  serverURL={siteMetadata.walineServerUrl}
+                  locale={locale}
+                />
+                <ShareDropdown title={title} locale={locale} />
               </div>
             </div>
           </header>
@@ -63,7 +67,11 @@ export default async function PostLayout({ content, next, prev, children, locale
               <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
             </div>
             <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300" id="comment">
-              <WalineComments path={slug} serverURL={siteMetadata.walineServerUrl} />
+              <WalineComments
+                path={slug}
+                serverURL={siteMetadata.walineServerUrl}
+                locale={locale}
+              />
             </div>
             <footer>
               <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">

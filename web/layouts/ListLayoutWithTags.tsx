@@ -7,6 +7,7 @@ import { formatDate } from 'pliny/utils/formatDate'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import type { Post } from '@/data/blog'
+import { useTranslation } from 'app/i18n/client'
 
 interface PaginationProps {
   totalPages: number
@@ -80,6 +81,7 @@ export default function ListLayoutWithTags({
   const pathname = usePathname()
   const displayPosts = posts.slice(postsPerPage * (currentPage - 1), postsPerPage * currentPage)
   const totalPages = Math.ceil(posts.length / postsPerPage)
+  const { t } = useTranslation(locale, 'list')
 
   // tags related
   const tagKeys = Object.keys(tagCounts)
@@ -96,14 +98,14 @@ export default function ListLayoutWithTags({
         <div className="flex sm:space-x-24">
           <div className="bg[#ffebcd] hidden h-full max-h-screen min-w-[280px] max-w-[280px] flex-wrap overflow-auto rounded pt-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40 sm:flex">
             <div className="px-6 py-4">
-              {pathname.startsWith('/blog') ? (
-                <h3 className="font-bold uppercase text-primary-500">All Posts</h3>
+              {pathname.includes('/blog') ? (
+                <h3 className="font-bold uppercase text-primary-500">{t('all')}</h3>
               ) : (
                 <Link
-                  href={`/blog`}
+                  href={`/${locale}/blog`}
                   className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
                 >
-                  All Posts
+                  {t('all')}
                 </Link>
               )}
               <ul>
@@ -116,7 +118,7 @@ export default function ListLayoutWithTags({
                         </h3>
                       ) : (
                         <Link
-                          href={`/tags/${slug(t)}`}
+                          href={`/${locale}/tags/${slug(t)}`}
                           className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
                           aria-label={`View posts tagged ${t}`}
                         >

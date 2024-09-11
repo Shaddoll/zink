@@ -8,12 +8,11 @@ import PostSimple from '@/layouts/PostSimple'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
-import getLocale from '@/data/locale'
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: { slug: string; lang: string }
 }): Promise<Metadata | undefined> {
   const slug = decodeURI(params.slug)
   const post = await fetchPost(slug)
@@ -31,7 +30,7 @@ export async function generateMetadata({
       title: post.title,
       description: post.summary,
       siteName: siteMetadata.title,
-      locale: 'zh_Hans',
+      locale: params.lang.replace('-', '_'),
       type: 'article',
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
@@ -47,7 +46,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: { params: { slug: string; lang: string } }) {
   const slug = decodeURI(params.slug)
   const myPost = await fetchPost(slug)
   if (!myPost) {
@@ -61,20 +60,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
     dateModified: myPost.lastmod,
     description: myPost.summary,
     image: '/static/images/twitter-card.png',
-    url: `${siteMetadata.siteUrl}/blog/${slug}`,
+    url: `${siteMetadata.siteUrl}/blog/${params.lang}/${slug}`,
     author: {
       '@type': 'Person',
       name: siteMetadata.author,
     },
   }
-  const locale = await getLocale()
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <PostSimple content={myPost} locale={locale}>
+      <PostSimple content={myPost} locale={params.lang}>
         <MDXRemote source={myPost.content} components={components} />
       </PostSimple>
     </>

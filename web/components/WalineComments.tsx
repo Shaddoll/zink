@@ -8,9 +8,10 @@ import 'css/waline.css'
 interface WalineCommentsProps {
   path: string
   serverURL: string
+  locale: string
 }
 
-export default function WalineComments({ path, serverURL }: WalineCommentsProps) {
+export default function WalineComments({ path, serverURL, locale }: WalineCommentsProps) {
   useEffect(() => {
     const walineInstance = init({
       el: '#waline',
@@ -23,9 +24,10 @@ export default function WalineComments({ path, serverURL }: WalineCommentsProps)
         'https://unpkg.com/@waline/emojis@1.2.0/tieba',
       ],
       dark: 'html[style="color-scheme: dark;"]',
+      lang: locale.split('-')[0],
     })
     return () => walineInstance?.destroy()
-  }, [path, serverURL])
+  }, [path, serverURL, locale])
 
   return <div id="waline" />
 }

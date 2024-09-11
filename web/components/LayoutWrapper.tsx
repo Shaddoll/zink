@@ -6,17 +6,18 @@ import Header from './Header'
 
 interface Props {
   children: ReactNode
+  locale: string
 }
 
 const inter = Inter({
   subsets: ['latin'],
 })
 
-const LayoutWrapper = ({ children }: Props) => {
+const LayoutWrapper = async ({ children, locale }: Props) => {
   return (
     <SectionContainer>
       <div className={`${inter.className} flex h-screen flex-col justify-between font-sans`}>
-        <Header />
+        <Header locale={locale} />
         <main className="mb-auto">{children}</main>
         <Footer />
       </div>

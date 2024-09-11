@@ -9,7 +9,13 @@ interface PageSEOProps {
   [key: string]: any
 }
 
-export function genPageMetadata({ title, description, image, ...rest }: PageSEOProps): Metadata {
+export function genPageMetadata({
+  title,
+  description,
+  image,
+  params: { lang },
+  ...rest
+}: PageSEOProps): Metadata {
   return {
     title,
     description: description || siteMetadata.description,
@@ -19,11 +25,14 @@ export function genPageMetadata({ title, description, image, ...rest }: PageSEOP
       url: './',
       siteName: siteMetadata.title,
       images: image ? [image] : [siteMetadata.socialBanner],
-      locale: 'en_US',
+      locale: lang,
       type: 'website',
     },
     twitter: {
       title: `${title} | ${siteMetadata.title}`,
+      description: description ? description : siteMetadata.description,
+      site: siteMetadata.siteUrl,
+      creator: siteMetadata.author,
       card: 'summary_large_image',
       images: image ? [image] : [siteMetadata.socialBanner],
     },

@@ -2,7 +2,7 @@ const siteMetadata = {
   title: 'Z\'ink',
   author: 'Z',
   headerTitle: 'Z\'ink',
-  description: '重要的不是发生了什么，而是去做什么。',
+  description: 'What matters is not what happened, but what to do.\n 重要的不是发生了什么，而是去做什么。',
   language: 'zh-Hans',
   supportedLocales: ['en-US', 'zh-Hans'],
   localeToLanguageMap: {

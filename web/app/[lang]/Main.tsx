@@ -4,10 +4,13 @@ import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 import WalineComments from '@/components/WalineComments'
+import { createTranslation } from 'app/i18n/server'
 
 const MAX_DISPLAY = 3
 
-export default function Home({ posts, locale }) {
+export default async function Home({ posts, locale }) {
+  const { t } = await createTranslation(locale, 'home')
+
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -16,21 +19,21 @@ export default function Home({ posts, locale }) {
             {/* First Group (60% width) */}
             <div className="w-full md:w-[60%]">
               <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-                Latest
+                {t('greeting')}
               </h1>
-              <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+              <p className="whitespace-pre-line text-lg leading-7 text-gray-500 dark:text-gray-400">
                 {siteMetadata.description}
               </p>
             </div>
 
             {/* Second Group (40% width) */}
             <div className="my-12 flex w-full items-center justify-center md:w-[40%]">
-              <NewsletterForm title="Subscribe to the latest post to your email" />
+              <NewsletterForm title={t('newsletter')} />
             </div>
           </div>
         </div>
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {!posts.length && 'No posts found.'}
+          {!posts.length && t('noposts')}
           {posts.slice(0, MAX_DISPLAY).map((post) => {
             const { slug, date, title, summary, tags } = post
             return (
@@ -38,7 +41,7 @@ export default function Home({ posts, locale }) {
                 <article>
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
-                      <dt className="sr-only">Published on</dt>
+                      <dt className="sr-only">{t('pub')}</dt>
                       <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                         <time dateTime={date}>{formatDate(date, locale)}</time>
                       </dd>
@@ -48,7 +51,7 @@ export default function Home({ posts, locale }) {
                         <div>
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link
-                              href={`/blog/${slug}`}
+                              href={`/${locale}/blog/${slug}`}
                               className="text-gray-900 dark:text-gray-100"
                             >
                               {title}
@@ -66,11 +69,11 @@ export default function Home({ posts, locale }) {
                       </div>
                       <div className="text-base font-medium leading-6">
                         <Link
-                          href={`/blog/${slug}`}
+                          href={`/${locale}/blog/${slug}`}
                           className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          aria-label={`Read more: "${title}"`}
+                          aria-label={`${t('more')}: "${title}"`}
                         >
-                          Read more &rarr;
+                          {t('more')} &rarr;
                         </Link>
                       </div>
                     </div>
@@ -84,17 +87,17 @@ export default function Home({ posts, locale }) {
       {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">
           <Link
-            href="/blog"
+            href={`/${locale}/blog`}
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="All posts"
+            aria-label={t('all')}
           >
-            All Posts &rarr;
+            {t('all')} &rarr;
           </Link>
         </div>
       )}
 
       <div className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300" id="comment">
-        <WalineComments path="/" serverURL={siteMetadata.walineServerUrl} />
+        <WalineComments path="/" serverURL={siteMetadata.walineServerUrl} locale={locale} />
       </div>
     </>
   )

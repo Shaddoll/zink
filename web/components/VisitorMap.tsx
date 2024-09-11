@@ -4,6 +4,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import 'leaflet/dist/leaflet.css'
 import VisitorStats from './VisitorStats'
+import { useTranslation } from 'app/i18n/client'
 
 const markerRadius = [8, 10, 12, 14]
 
@@ -14,7 +15,7 @@ function getMarkerRadius(value: number) {
   return markerRadius[3]
 }
 
-const VisitorMap = ({ data, visits, startDate, currentDate }) => {
+const VisitorMap = ({ data, visits, startDate, currentDate, locale }) => {
   const MapContainer = dynamic(
     () => import('react-leaflet').then((module) => module.MapContainer),
     { ssr: false }
@@ -41,9 +42,15 @@ const VisitorMap = ({ data, visits, startDate, currentDate }) => {
     { ssr: false }
   )
   const MarkerClusterGroup = dynamic(() => import('react-leaflet-cluster'), { ssr: false })
+  const { t } = useTranslation(locale, 'visitor')
   return (
-    <div className="relative flex min-h-full flex-col">
-      <VisitorStats startDate={startDate} currentDate={currentDate} visits={visits} />
+    <div className="flex min-h-full flex-col">
+      <VisitorStats
+        startDate={startDate}
+        currentDate={currentDate}
+        visits={visits}
+        locale={locale}
+      />
       <div className="flex-grow">
         {/* Takes up all available space */}
         <div className="relative h-[48rem] w-full">
@@ -61,7 +68,7 @@ const VisitorMap = ({ data, visits, startDate, currentDate }) => {
               minZoom={1}
             />
             <LayersControl>
-              <BaseLayer checked name="Distinct Visitors">
+              <BaseLayer checked name={t('distinct')}>
                 <MarkerClusterGroup
                   showCoverageOnHover={false}
                   zoomToBoundsOnClick={true}
@@ -90,7 +97,7 @@ const VisitorMap = ({ data, visits, startDate, currentDate }) => {
                   </LayerGroup>
                 </MarkerClusterGroup>
               </BaseLayer>
-              <BaseLayer name="Total Visitors">
+              <BaseLayer name={t('total')}>
                 <MarkerClusterGroup
                   showCoverageOnHover={false}
                   zoomToBoundsOnClick={true}

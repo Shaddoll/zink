@@ -1,0 +1,9 @@
+{
+  "today": "Today Visits",
+  "yesterday": "Yesterday",
+  "week": "Last 7 days",
+  "month": "Last 30 days",
+  "total": "Total Visits",
+  "since": "Since",
+  "distinct": "Distinct Visitors" 
+}

@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from 'react'
 import siteMetadata from '@/data/siteMetadata'
 import Link from 'next/link'
+import { useTranslation } from 'app/i18n/client'
 
-const OnlineUsersTracker = () => {
+const OnlineUsersTracker = ({ locale }) => {
   const [onlineUsers, setOnlineUsers] = useState(1)
+  const { t } = useTranslation(locale, 'header')
 
   useEffect(() => {
     // Establish WebSocket connection
@@ -25,10 +27,10 @@ const OnlineUsersTracker = () => {
 
   return (
     <Link
-      href="/visitor"
+      href={`/${locale}/visitor`}
       className="block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
     >
-      Online Visitors: {onlineUsers}
+      {t('online')}: {onlineUsers}
     </Link>
   )
 }
