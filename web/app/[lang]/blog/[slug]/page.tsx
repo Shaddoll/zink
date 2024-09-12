@@ -8,6 +8,7 @@ import PostSimple from '@/layouts/PostSimple'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
+import { languages } from 'app/i18n/settings'
 
 export async function generateMetadata({
   params,
@@ -47,6 +48,9 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string; lang: string } }) {
+  if (!languages.includes(params.lang)) {
+    return notFound()
+  }
   const slug = decodeURI(params.slug)
   const myPost = await fetchPost(slug)
   if (!myPost) {

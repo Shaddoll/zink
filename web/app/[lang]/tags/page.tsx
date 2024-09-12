@@ -4,6 +4,8 @@ import Tag from '@/components/Tag'
 import { genPageMetadata } from 'app/[lang]/seo'
 import fetchTagCounts from '@/data/tags'
 import { createTranslation } from 'app/i18n/server'
+import { languages } from 'app/i18n/settings'
+import { notFound } from 'next/navigation'
 
 type TagsProps = {
   params: { lang: string }
@@ -19,6 +21,9 @@ export async function generateMetadata({ params: { lang } }: TagsProps): Promise
 }
 
 export default async function Page({ params: { lang } }: TagsProps) {
+  if (!languages.includes(lang)) {
+    return notFound()
+  }
   const { t } = await createTranslation(lang, 'tags')
   const tagCounts = await fetchTagCounts()
   const tagKeys = Object.keys(tagCounts)

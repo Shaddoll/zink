@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import fetchPostsByTag from '@/data/tag'
 import fetchTagCounts from '@/data/tags'
+import { languages } from 'app/i18n/settings'
 
 export async function generateMetadata({
   params,
@@ -20,6 +21,9 @@ export async function generateMetadata({
 }
 
 export default async function TagPage({ params }: { params: { tag: string; lang: string } }) {
+  if (!languages.includes(params.lang)) {
+    return notFound()
+  }
   const tag = decodeURI(params.tag)
   // Capitalize first letter and convert space to dash
   const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1)

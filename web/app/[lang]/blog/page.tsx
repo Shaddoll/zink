@@ -4,6 +4,8 @@ import fetchPosts from '@/data/blogs'
 import fetchTagCounts from '@/data/tags'
 import { genPageMetadata } from 'app/[lang]/seo'
 import { createTranslation } from 'app/i18n/server'
+import { languages } from 'app/i18n/settings'
+import { notFound } from 'next/navigation'
 
 const POSTS_PER_PAGE = 5
 
@@ -20,6 +22,9 @@ export async function generateMetadata({ params: { lang } }: BlogPageProps): Pro
 }
 
 export default async function BlogPage({ params: { lang } }) {
+  if (!languages.includes(lang)) {
+    return notFound()
+  }
   const { t } = await createTranslation(lang, 'blog')
   const posts = await fetchPosts()
   const tagCounts = await fetchTagCounts()

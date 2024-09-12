@@ -4,7 +4,7 @@ import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import AuthorLayout from '@/layouts/AuthorLayout'
 import { coreContent } from 'pliny/utils/contentlayer'
 import { genPageMetadata } from 'app/[lang]/seo'
-import { redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { createTranslation } from 'app/i18n/server'
 
 export async function generateMetadata({ params: { lang } }): Promise<Metadata | undefined> {
@@ -19,7 +19,7 @@ export async function generateMetadata({ params: { lang } }): Promise<Metadata |
 export default function Page({ params: { lang } }) {
   const author = allAuthors.find((p) => p.name === 'Z' && p.locale === lang) as Authors
   if (!author) {
-    redirect('/en-US/about')
+    return notFound()
   }
   const mainContent = coreContent(author)
 
