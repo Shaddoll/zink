@@ -2,7 +2,7 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from '@/utils/formatDate'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
+import NewsletterForm from '@/components/NewsletterForm'
 import WalineComments from '@/components/WalineComments'
 import { createTranslation } from 'app/i18n/server'
 
@@ -15,7 +15,7 @@ export default async function Home({ posts, locale }) {
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col space-x-4 md:flex-row">
             {/* First Group (60% width) */}
             <div className="w-full md:w-[60%]">
               <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
@@ -28,7 +28,7 @@ export default async function Home({ posts, locale }) {
 
             {/* Second Group (40% width) */}
             <div className="my-12 flex w-full items-center justify-center md:w-[40%]">
-              <NewsletterForm title={t('newsletter')} />
+              <NewsletterForm title={t('newsletter')} locale={locale} />
             </div>
           </div>
         </div>
