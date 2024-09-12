@@ -32,7 +32,7 @@ export default async function TagPage({ params }: { params: { tag: string; lang:
     <ListLayout
       posts={posts}
       title={title}
-      postsPerPage={1}
+      postsPerPage={5}
       tagCounts={tagCounts}
       locale={params.lang}
     />

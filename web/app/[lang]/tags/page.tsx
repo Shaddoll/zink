@@ -36,7 +36,7 @@ export default async function Page({ params: { lang } }: TagsProps) {
           {sortedTags.map((tag) => {
             return (
               <div key={tag} className="mb-2 mr-5 mt-2">
-                <Tag text={tag} />
+                <Tag text={tag} locale={lang} />
                 <Link
                   href={`/${lang}/tags/${tag}`}
                   className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"

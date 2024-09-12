@@ -150,14 +150,14 @@ export default function ListLayoutWithTags({
                         <div>
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link
-                              href={`/blog/${slug}`}
+                              href={`/${locale}/blog/${slug}`}
                               className="text-gray-900 dark:text-gray-100"
                             >
                               {title}
                             </Link>
                           </h2>
                           <div className="flex flex-wrap">
-                            {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                            {tags?.map((tag) => <Tag key={tag} text={tag} locale={locale} />)}
                           </div>
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">

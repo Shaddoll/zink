@@ -47,7 +47,7 @@ export default async function PostLayout({ content, next, prev, children, locale
                   </h2>
                   <div className="flex flex-wrap justify-center">
                     {tags.map((tag) => (
-                      <Tag key={tag} text={tag} />
+                      <Tag key={tag} text={tag} locale={locale} />
                     ))}
                   </div>
                 </div>

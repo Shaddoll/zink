@@ -15,7 +15,6 @@ const NewsletterForm = ({
   apiUrl = '/api/newsletter',
   locale,
 }: NewsletterFormProps) => {
-  console.log('locale:', locale)
   const { t } = useTranslation(locale, 'newsletter')
 
   const inputEl = useRef<HTMLInputElement>(null)
