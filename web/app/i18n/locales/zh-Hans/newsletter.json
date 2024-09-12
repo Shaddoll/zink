@@ -5,5 +5,8 @@
     "placeholderSuccess": "订阅成功 !  🎉",
     "placeholderDefault": "输入你的邮箱",
     "buttonSuccess": "感谢订阅!",
-    "buttonDefault": "订阅"
+    "buttonDefault": "订阅",
+    "placeholderCaptcha": "输入验证码",
+    "loadCaptcha": "加载验证码...",
+    "messageErrorCaptcha": "验证码错误"
 }

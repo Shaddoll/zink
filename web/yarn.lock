@@ -4966,6 +4966,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: f56a7d32a07db5458e79c726b77e3c2eff655c36792f2b6c58d351fb5f61531e5b1ab7f46987150136e366c65213cbe31729e02a3eaed630c3bf7334635fb410
+  languageName: node
+  linkType: hard
+
 "cookiejar@npm:^2.1.0":
   version: 2.1.4
   resolution: "cookiejar@npm:2.1.4"
@@ -7444,6 +7451,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iron-session@npm:^8.0.3":
+  version: 8.0.3
+  resolution: "iron-session@npm:8.0.3"
+  dependencies:
+    cookie: 0.6.0
+    iron-webcrypto: 1.2.1
+    uncrypto: 0.1.3
+  checksum: fa5efd6e41d25f043e5190d6b426cafc9aa21b2c57e65c77cdd447a0161c95b52da0868d06350436f255fd1a337e807d499b8a889f33229de978561201d851b4
+  languageName: node
+  linkType: hard
+
+"iron-webcrypto@npm:1.2.1":
+  version: 1.2.1
+  resolution: "iron-webcrypto@npm:1.2.1"
+  checksum: b158d1893c8d037c11a7dcfd1998b519f31f979643c2c505c6eb1170fd63553498a58b05947d5dea116975df8f12ede5ca235cb68e4c1f404fa6695e4508c60c
+  languageName: node
+  linkType: hard
+
 "is-alphabetical@npm:^2.0.0":
   version: 2.0.1
   resolution: "is-alphabetical@npm:2.0.1"
@@ -9795,6 +9820,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"opentype.js@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "opentype.js@npm:0.7.3"
+  dependencies:
+    tiny-inflate: ^1.0.2
+  bin:
+    ot: ./bin/ot
+  checksum: 3c5c03cdfd096a67bcc1782e3463bea33577500f77c54a7374ff181f384612e59b4d2ae0c5dc612e12ac97dd093bb1aeb680d2a51369faeca8eb36d45562f341
+  languageName: node
+  linkType: hard
+
 "optionator@npm:^0.9.3":
   version: 0.9.4
   resolution: "optionator@npm:0.9.4"
@@ -11979,6 +12015,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"svg-captcha@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "svg-captcha@npm:1.4.0"
+  dependencies:
+    opentype.js: ^0.7.3
+  checksum: e93b21d39456b80cd61fdf745243a22d9d920a7729bebf45589e7d5361463e434d49604dda53f55f85fe43c5a8be325e64dc60565266604825b01c4dcb9708e9
+  languageName: node
+  linkType: hard
+
 "svg-parser@npm:^2.0.4":
   version: 2.0.4
   resolution: "svg-parser@npm:2.0.4"
@@ -12061,6 +12106,7 @@ __metadata:
     i18next-browser-languagedetector: ^8.0.0
     i18next-resources-to-backend: ^1.2.1
     image-size: 1.0.0
+    iron-session: ^8.0.3
     leaflet: ^1.9.4
     lint-staged: ^13.0.0
     negotiator: ^0.6.3
@@ -12090,6 +12136,7 @@ __metadata:
     remark-github-blockquote-alert: ^1.2.1
     remark-math: ^6.0.0
     sharp: ^0.33.5
+    svg-captcha: ^1.4.0
     tailwindcss: ^3.4.3
     typescript: ^5.1.3
     unist-util-visit: ^5.0.0
@@ -12191,6 +12238,13 @@ __metadata:
     readable-stream: ~2.3.6
     xtend: ~4.0.1
   checksum: beb0f338aa2931e5660ec7bf3ad949e6d2e068c31f4737b9525e5201b824ac40cac6a337224856b56bd1ddd866334bbfb92a9f57cd6f66bc3f18d3d86fc0fe50
+  languageName: node
+  linkType: hard
+
+"tiny-inflate@npm:^1.0.2":
+  version: 1.0.3
+  resolution: "tiny-inflate@npm:1.0.3"
+  checksum: 4086a1f8938dafa4a20c63b099aeb47bf8fef5aca991bf4ea4b35dd2684fa52363b2c19b3e76660311e7613cb7c4f063bc48751b9bdf9555e498d997c30bc2d6
   languageName: node
   linkType: hard
 
@@ -12437,6 +12491,13 @@ __metadata:
     has-symbols: ^1.0.3
     which-boxed-primitive: ^1.0.2
   checksum: b7a1cf5862b5e4b5deb091672ffa579aa274f648410009c81cca63fed3b62b610c4f3b773f912ce545bb4e31edc3138975b5bc777fc6e4817dca51affb6380e9
+  languageName: node
+  linkType: hard
+
+"uncrypto@npm:0.1.3":
+  version: 0.1.3
+  resolution: "uncrypto@npm:0.1.3"
+  checksum: 07160e08806dd6cea16bb96c3fd54cd70fc801e02fc3c6f86980144d15c9ebbd1c55587f7280a207b3af6cd34901c0d0b77ada5a02c2f7081a033a05acf409e2
   languageName: node
   linkType: hard
 

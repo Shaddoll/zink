@@ -94,6 +94,9 @@ module.exports = () => {
         use: ['@svgr/webpack'],
       })
 
+    if (options.isServer) {
+      config.externals.push("svg-captcha");
+    }
       return config
     },
   })

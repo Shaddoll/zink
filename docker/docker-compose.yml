@@ -26,6 +26,7 @@ services:
       - EMAILOCTOPUS_LIST_ID=${EMAILOCTOPUS_LIST_ID}
       - EMAILOCTOPUS_API_KEY=${EMAILOCTOPUS_API_KEY}
       - CLUSTRMAP_ID=${CLUSTRMAP_ID}
+      - SECRET_COOKIE_PASSWORD=${SECRET_COOKIE_PASSWORD}
     volumes:
       - ../secrets:/etc/secrets:ro
     depends_on:
