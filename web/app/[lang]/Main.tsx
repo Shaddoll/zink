@@ -5,7 +5,6 @@ import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 import WalineComments from '@/components/WalineComments'
 import { createTranslation } from 'app/i18n/server'
-import ClientOnly from '@/components/ClientOnly'
 
 const MAX_DISPLAY = 3
 
@@ -44,9 +43,7 @@ export default async function Home({ posts, locale }) {
                     <dl>
                       <dt className="sr-only">{t('pub')}</dt>
                       <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <ClientOnly>
-                          <time dateTime={date}>{formatDate(date, locale)}</time>
-                        </ClientOnly>
+                        <time dateTime={date}>{formatDate(date, locale)}</time>
                       </dd>
                     </dl>
                     <div className="space-y-5 xl:col-span-3">
