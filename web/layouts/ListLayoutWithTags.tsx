@@ -3,7 +3,7 @@
 
 import { usePathname, useSearchParams } from 'next/navigation'
 import { slug } from 'github-slugger'
-import { formatDate } from 'pliny/utils/formatDate'
+import { formatDate } from '@/utils/formatDate'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import type { Post } from '@/data/blog'

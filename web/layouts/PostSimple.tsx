@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { formatDate } from 'pliny/utils/formatDate'
+import { formatDate } from '@/utils/formatDate'
 import type { Post } from '@/data/blog'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
