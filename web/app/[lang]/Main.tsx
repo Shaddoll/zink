@@ -27,7 +27,7 @@ export default async function Home({ posts, locale }) {
             </div>
 
             {/* Second Group (40% width) */}
-            <div className="my-12 flex w-full items-center justify-center md:w-[40%]">
+            <div className="mt-12 flex w-full items-center justify-center md:w-[40%]">
               <NewsletterForm title={t('newsletter')} locale={locale} />
             </div>
           </div>

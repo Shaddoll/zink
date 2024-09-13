@@ -3,11 +3,11 @@ const siteMetadata = {
   author: 'Z',
   headerTitle: 'Z\'ink',
   description: 'What matters is not what happened, but what to do.\n 重要的不是发生了什么，而是去做什么。',
-  language: 'zh-Hans',
-  supportedLocales: ['en-US', 'zh-Hans'],
+  language: 'zh-CN',
+  supportedLocales: ['en-US', 'zh-CN'],
   localeToLanguageMap: {
     'en-US': 'English',
-    'zh-Hans': '简体中文',
+    'zh-CN': '简体中文',
   },
   theme: 'system', // system, dark or light
   siteUrl: 'https://zink.top',
@@ -30,7 +30,7 @@ const siteMetadata = {
   stickyNav: false,
   analytics: {
     googleAnalytics: {
-      googleAnalyticsId: `${process.env.GOOGLE_ANALYTICS_ID || ''}`, 
+      googleAnalyticsId: `${process.env.GOOGLE_ANALYTICS_ID || ''}`,
     },
   },
   googleAcountKeyFilePath: process.env.GOOGLE_ACCOUNT_KEY_FILE_PATH || '/etc/secrets/google-account-key.json',
