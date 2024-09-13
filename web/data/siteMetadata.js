@@ -16,6 +16,7 @@ const siteMetadata = {
   walineServerUrl: `${process.env.WALINE_URL || 'http://localhost:7001'}`,
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'z@zink.top',
+  rss: 'https://zink.top/feed.xml',
   github: 'https://github.com',
   x: 'https://twitter.com/x',
   facebook: 'https://facebook.com',
