@@ -14,6 +14,7 @@ import { Metadata } from 'next'
 import ClustrMapsWidget from '@/components/ClustrMapWidget'
 import { dir } from 'i18next'
 import { languages } from '../i18n/settings'
+import { isMyOwnRequest } from '@/utils/isMyOwnRequest'
 
 export async function generateStaticParams() {
   return languages.map((lang) => ({ lang }))
@@ -70,7 +71,7 @@ export async function generateMetadata({ params: { lang } }): Promise<Metadata> 
   }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { lang },
 }: {
@@ -79,6 +80,8 @@ export default function RootLayout({
 }) {
   const basePath = process.env.BASE_PATH || ''
   const clustrMapID = process.env.CLUSTRMAP_ID || ''
+  const isMyself = await isMyOwnRequest()
+  console.log('isMyself', isMyself)
 
   return (
     <html
@@ -122,7 +125,7 @@ export default function RootLayout({
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       <body className="bg-[#faebd7] pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
         <ThemeProviders>
-          <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
+          {!isMyself && <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />}
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
               <Header locale={lang} />
@@ -131,7 +134,7 @@ export default function RootLayout({
             <Footer />
           </SectionContainer>
         </ThemeProviders>
-        {clustrMapID && <ClustrMapsWidget id={clustrMapID} />}
+        {!isMyself && clustrMapID && <ClustrMapsWidget id={clustrMapID} />}
       </body>
     </html>
   )
