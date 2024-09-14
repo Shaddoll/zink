@@ -28,8 +28,10 @@ services:
       - CLUSTRMAP_ID=${CLUSTRMAP_ID}
       - SECRET_COOKIE_PASSWORD=${SECRET_COOKIE_PASSWORD}
       - COOKIE_IDENTITY=${COOKIE_IDENTITY}
+      - CACAE_PATH=/tmp/cache
     volumes:
       - ../secrets:/etc/secrets:ro
+      - /tmp/cache:/tmp/cache
     depends_on:
       - zink-api
   nginx:
