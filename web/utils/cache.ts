@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 
 export interface CacheOptions {
   memoryTTL: number; // Time in milliseconds for memory cache
