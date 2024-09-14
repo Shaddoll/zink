@@ -18,7 +18,7 @@ services:
       - 3000
     environment:
       - API_URL=http://zink-api:8000
-      - WALINE_URL=${WALINE_URL}
+      - WALINE_URL=http://waline:8360
       - GOOGLE_ACCOUNT_KEY_FILE_PATH=/etc/secrets/google_account_key.json
       - GOOGLE_ANALYTICS_PROPERTY=${GOOGLE_ANALYTICS_PROPERTY}
       - GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID}
@@ -34,6 +34,15 @@ services:
       - /tmp/cache:/tmp/cache
     depends_on:
       - zink-api
+      - waline
+  waline:
+    image: lizheming/waline:1.32.1-alpine
+    expose:
+      - 8360
+    environment:
+      - LEAN_ID=${LEAN_ID}
+      - LEAN_KEY=${LEAN_KEY}
+      - LEAN_MASTER_KEY=${LEAN_MASTER_KEY}
   nginx:
     image: nginx:alpine
     environment:
