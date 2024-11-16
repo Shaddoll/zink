@@ -9,6 +9,7 @@ import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
 import { languages } from 'app/i18n/settings'
+import remarkGfm from 'remark-gfm'
 
 export async function generateMetadata({
   params,
@@ -70,6 +71,11 @@ export default async function Page({ params }: { params: { slug: string; lang: s
       name: siteMetadata.author,
     },
   }
+  const options = {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+    },
+  }
   return (
     <>
       <script
@@ -77,7 +83,7 @@ export default async function Page({ params }: { params: { slug: string; lang: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <PostSimple content={myPost} locale={params.lang}>
-        <MDXRemote source={myPost.content} components={components} />
+        <MDXRemote source={myPost.content} options={options} components={components} />
       </PostSimple>
     </>
   )
