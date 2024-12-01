@@ -15,7 +15,7 @@ http {
 
     server {
         listen 80;
-        server_name ${DOMAIN_NAME} www.${DOMAIN_NAME} ${BLOB_DOMAIN_NAME};
+        server_name ${DOMAIN_NAME} www.${DOMAIN_NAME} mail.${DOMAIN_NAME} ${BLOB_DOMAIN_NAME};
 
         # Serve Certbot challenges
         location /.well-known/acme-challenge/ {
@@ -24,6 +24,9 @@ http {
 
         # Redirect all other HTTP requests to HTTPS
         location / {
+            if ($host = mail.${DOMAIN_NAME}) {
+                return 404;
+            }
             return 301 https://$host$request_uri;
         }
     }
@@ -77,4 +80,24 @@ http {
             try_files $uri $uri/ =403;
         }
     }
+
+    server {
+        listen 80 default_server;
+        server_name _;
+
+        # Return a 404 for unmatched domains
+        return 404;
+    }
+
+    server {
+        listen 443 ssl default_server;
+        server_name _;
+
+        ssl_certificate /etc/nginx/certs/fullchain.pem;
+        ssl_certificate_key /etc/nginx/certs/privkey.pem;
+
+        # Serve a default response or error page
+        return 404;
+    }
+
 }
