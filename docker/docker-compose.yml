@@ -43,6 +43,14 @@ services:
       - LEAN_ID=${LEAN_ID}
       - LEAN_KEY=${LEAN_KEY}
       - LEAN_MASTER_KEY=${LEAN_MASTER_KEY}
+  chatgpt-next-web:
+    image: yidadaa/chatgpt-next-web
+    expose:
+      - 3000
+    environment:
+      - OPENAI_API_KEY=$OPENAI_API_KEY
+      - CODE=$CODE
+      - OPENAI_ORG_ID=$OPENAI_ORG_ID
   nginx:
     image: nginx:alpine
     environment:
@@ -60,3 +68,5 @@ services:
     depends_on:
       - zink-web
       - zink-api
+      - waline
+      - chatgpt-next-web
