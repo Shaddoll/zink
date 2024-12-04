@@ -59,6 +59,9 @@ http {
             if ($host = chatgpt.${DOMAIN_NAME}) {
                 return 404;
             }
+            if ($host = trojan.${DOMAIN_NAME}) {
+                return 404;
+            }
             return 301 https://$host$request_uri;
         }
     }
