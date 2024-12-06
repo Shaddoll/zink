@@ -58,6 +58,20 @@ services:
     volumes:
       - ../trojan/config.json:/config/config.json
       - ../certs:/etc/trojan/cert:ro
+  srt-generator:
+    build:
+      context: ../srt
+      dockerfile: Dockerfile
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OUTPUT_DIR=/tmp/output
+      - UPLOAD_DIR=/tmp/upload
+      - ACCESS_PASSWORD=123
+    expose:
+      - 5000
+    volumes:
+      - ./static/output:/tmp/output
+      - ./static/upload:/tmp/upload
   nginx:
     image: nginx:alpine
     environment:
