@@ -1,5 +1,30 @@
 events {}
 
+stream {
+    map $ssl_preread_server_name $name {
+        trojan.${DOMAIN_NAME} trojan;
+        default web;
+    }
+
+    upstream trojan {
+        server trojan:443;
+    }
+
+    upstream web {
+        server 127.0.0.1:4430;
+    }
+
+    server {
+        listen 443 reuseport;
+
+        ssl_certificate /etc/nginx/certs/fullchain.pem;
+        ssl_certificate_key /etc/nginx/certs/privkey.pem;
+
+        proxy_pass $name;
+        ssl_preread on;
+    }
+}
+
 http {
     upstream zink-web {
         server zink-web:3000;
@@ -19,7 +44,7 @@ http {
 
     server {
         listen 80;
-        server_name ${DOMAIN_NAME} www.${DOMAIN_NAME} mail.${DOMAIN_NAME} chatgpt.${DOMAIN_NAME} ${BLOB_DOMAIN_NAME};
+        server_name ${DOMAIN_NAME} www.${DOMAIN_NAME} mail.${DOMAIN_NAME} chatgpt.${DOMAIN_NAME} trojan.${DOMAIN_NAME} ${BLOB_DOMAIN_NAME};
 
         # Serve Certbot challenges
         location /.well-known/acme-challenge/ {
@@ -34,12 +59,15 @@ http {
             if ($host = chatgpt.${DOMAIN_NAME}) {
                 return 404;
             }
+            if ($host = trojan.${DOMAIN_NAME}) {
+                return 404;
+            }
             return 301 https://$host$request_uri;
         }
     }
 
     server {
-        listen 443 ssl;
+        listen 4430 ssl;
         server_name ${DOMAIN_NAME} www.${DOMAIN_NAME};
 
         ssl_certificate /etc/nginx/certs/fullchain.pem;
@@ -74,7 +102,7 @@ http {
     }
 
     server {
-        listen 443 ssl;
+        listen 4430 ssl;
         server_name chatgpt.${DOMAIN_NAME};
 
         ssl_certificate /etc/nginx/certs/fullchain.pem;
@@ -90,7 +118,7 @@ http {
     }
 
     server {
-        listen 443 ssl;
+        listen 4430 ssl;
         server_name ${BLOB_DOMAIN_NAME};
 
         ssl_certificate /etc/nginx/certs/fullchain.pem;
@@ -113,7 +141,7 @@ http {
     }
 
     server {
-        listen 443 ssl default_server;
+        listen 4430 ssl default_server;
         server_name _;
 
         ssl_certificate /etc/nginx/certs/fullchain.pem;
@@ -122,5 +150,4 @@ http {
         # Serve a default response or error page
         return 404;
     }
-
 }

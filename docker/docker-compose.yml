@@ -51,6 +51,13 @@ services:
       - OPENAI_API_KEY=$OPENAI_API_KEY
       - CODE=$CODE
       - OPENAI_ORG_ID=$OPENAI_ORG_ID
+  trojan:
+    image: trojangfw/trojan
+    expose:
+      - 443
+    volumes:
+      - ../trojan/config.json:/config/config.json
+      - ../certs:/etc/trojan/cert:ro
   nginx:
     image: nginx:alpine
     environment:
@@ -70,3 +77,4 @@ services:
       - zink-api
       - waline
       - chatgpt-next-web
+      - trojan

@@ -30,3 +30,4 @@ email/docker-data/*
 
 certs/*
 secrets/*
+trojan/config.json
