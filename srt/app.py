@@ -74,6 +74,7 @@ def process_file():
                             response_format="verbose_json"
                         )
                     except Exception as e:
+                        yield f"data: {{\"error\": \"{str(e)}\"}}\n\n"
                         raise
                     with open(subtitle_file, "w", encoding="utf-8") as f:
                         for seg in transcript.segments:
@@ -97,9 +98,9 @@ def process_file():
                 print("failed to delete uploaded file", e)
                 pass
         except Exception as e:
-            raise
             # 捕获异常并发送错误消息
             yield f"data: {{\"error\": \"{str(e)}\"}}\n\n"
+            raise
 
     # 提取文件和裁剪时长
     file = request.files['file']

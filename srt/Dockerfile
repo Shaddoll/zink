@@ -48,4 +48,4 @@ COPY . .
 EXPOSE 5000
 
 # 启动 Flask 应用
-CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:5000", "--timeout", "600", "app:app"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:5000", "--timeout", "600", "--keep-alive", "75", "app:app"]
